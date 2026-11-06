@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela de Conducción - Clases de Manejo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf2f8; /* Fondo rosado pastel muy suave */
+            color: #4a5568;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(244, 114, 182, 0.15);
+            border: 1px solid #fbcfe8;
+        }
+
+        h1 {
+            color: #db2777; /* Rosa vibrante */
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9d174d;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .counter-badge {
+            background-color: #fce7f3;
+            color: #be185d;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: #fff1f2;
+            border-left: 5px solid #f43f5e;
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 63, 94, 0.12);
+        }
+
+        .card h3 {
+            color: #9f1239;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin: 4px 0;
+        }
+
+        .badge-status {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-pending {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #9d174d;
+            background-color: #fff1f2;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Escuela de Conducción</h1>
+        <p class="subtitle">Gestión de Clases de Manejo | Total: <span class="counter-badge">{{ total_clases }}</span></p>
+
+        <div class="card-list">
+            {% if clases %}
+                {% for clase in clases %}
+                    <div class="card">
+                        <h3>🚗 {{ clase.estudiante }}</h3>
+                        <p><strong>Categoría de Licencia:</strong> {{ clase.categoria_licencia }}</p>
+                        <p><strong>Horas Programadas:</strong> {{ clase.horas_programadas }} hrs</p>
+                        <div>
+                            {% if clase.completada %}
+                                <span class="badge-status status-completed">Completada ✓</span>
+                            {% else %}
+                                <span class="badge-status status-pending">Pendiente ⏳</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <p>No hay clases de manejo registradas actualmente.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
